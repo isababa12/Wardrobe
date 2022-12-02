@@ -1,10 +1,10 @@
 from django.db import models
 
 
-# class LocationVO(models.Model):
-#     closet_name = models.CharField(max_length=100)
-#     section_number = models.PositiveSmallIntegerField()
-#     shelf_number = models.PositiveSmallIntegerField()
+class LocationVO(models.Model):
+    closet_name = models.CharField(max_length=100)
+    section_number = models.PositiveSmallIntegerField()
+    shelf_number = models.PositiveSmallIntegerField()
 
 
 class Hat(models.Model):
@@ -13,12 +13,12 @@ class Hat(models.Model):
     color = models.CharField(max_length=200)
     picture_url = models.URLField()
 
-    # location = models.ForeignKey(
-    #     LocationVO,
-    #     related_name="location",
-    #     on_delete=models.CASCADE,
-    #     null=True,
-    # )
+    location = models.ForeignKey(
+        LocationVO,
+        related_name="location",
+        on_delete=models.CASCADE,
+        null=True,
+    )
 
     def __str__(self):
         return self.style_name
