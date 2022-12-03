@@ -9,9 +9,8 @@ sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hats_project.settings")
 django.setup()
 
-# Import models from hats_rest, here.
-# from hats_rest.models import Something
-from ..api.hats_rest.models import LocationVO
+
+from hats_rest.models import LocationVO
 
 
 def get_locations():
@@ -20,8 +19,7 @@ def get_locations():
     for location in content["locations"]:
         LocationVO.objects.update_or_create(
             closet_name=location["closet_name"],
-            section_number=["section_number"],
-            shelf_number= ["shelf_number"],
+            import_href=location["href"],
         )
 
 def poll():
@@ -29,7 +27,6 @@ def poll():
         print('Hats poller polling for data')
         try:
             get_locations()
-            pass
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)
