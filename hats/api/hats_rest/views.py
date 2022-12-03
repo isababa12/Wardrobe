@@ -9,6 +9,7 @@ class LocationVODetailEncoder(ModelEncoder):
     model = LocationVO
     properties = ["closet_name", "import_href"]
 
+
 class HatListEncoder(ModelEncoder):
     model = Hat
     properties = ["style_name"]
@@ -29,16 +30,13 @@ class HatDetailEncoder(ModelEncoder):
 
 
 @require_http_methods(["GET", "POST"])
-def api_list_hats(request, location_vo_id=None):
+def api_list_hats(request):
     if request.method == "GET":
-        if location_vo_id is not None:
-            hats = Hat.objects.filter(location=location_vo_id)
-        else:
-            hats = Hat.objects.all()
+        hats = Hat.objects.all()
         return JsonResponse(
             {"hats": hats},
-            encoder=HatListEncoder,
-        )
+            encoder=HatDetailEncoder,
+    )
     else:
         content = json.loads(request.body)
         try:
