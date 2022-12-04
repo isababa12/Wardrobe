@@ -15,10 +15,15 @@ class HatListEncoder(ModelEncoder):
     properties = [
         "style_name",
         "color",
+        "picture_url",
+        "fabric",
     ]
 
     def get_extra_data(self, o):
-        return {"id": o.id}
+        return {
+            "id": o.id,
+            "location": o.location.closet_name,
+            }
 
 
 class HatDetailEncoder(ModelEncoder):

@@ -14,12 +14,19 @@ function HatsList(props) {
         <tbody>
           {props.hats.map((hat) => {
             return (
-              <tr key={hat.location.import_href}>
+              <tr key={hat.id}>
                 <td>{hat.style_name}</td>
                 <td>{hat.fabric}</td>
                 <td>{hat.color}</td>
-                <td>{hat.picture_url}</td>
-                <td>{hat.location.closet_name}</td>
+                <td>
+                  <img
+                    className="img-thumbnail"
+                    src={hat.picture_url}
+                    height={75}
+                    width={75}
+                  ></img>
+                </td>
+                <td>{hat.location}</td>
               </tr>
             );
           })}
