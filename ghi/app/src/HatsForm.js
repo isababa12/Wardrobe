@@ -5,7 +5,7 @@ class HatsForm extends React.Component {
     super(props);
   }
   render() {
-    return console.log("is this on");
+    return console.log("testing if git branch is working");
   }
 }
 
