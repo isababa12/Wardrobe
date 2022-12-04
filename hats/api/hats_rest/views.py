@@ -12,7 +12,13 @@ class LocationVODetailEncoder(ModelEncoder):
 
 class HatListEncoder(ModelEncoder):
     model = Hat
-    properties = ["style_name"]
+    properties = [
+        "style_name",
+        "color",
+    ]
+
+    def get_extra_data(self, o):
+        return {"id": o.id}
 
 
 class HatDetailEncoder(ModelEncoder):
@@ -29,13 +35,14 @@ class HatDetailEncoder(ModelEncoder):
     }
 
 
+
 @require_http_methods(["GET", "POST"])
 def api_list_hats(request):
     if request.method == "GET":
         hats = Hat.objects.all()
         return JsonResponse(
             {"hats": hats},
-            encoder=HatDetailEncoder,
+            encoder=HatListEncoder,
     )
     else:
         content = json.loads(request.body)
