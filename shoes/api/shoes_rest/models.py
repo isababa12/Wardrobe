@@ -2,6 +2,7 @@ from django.db import models
 
 
 class BinVO(models.Model):
+    closet_name = models.CharField(max_length=100, null=True)
     bin_number = models.PositiveSmallIntegerField()
     import_href = models.CharField(max_length = 200, unique=True, null=True)
 

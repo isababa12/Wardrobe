@@ -18,8 +18,11 @@ def get_bin():
     content = json.loads(response.content)
     for bin in content["bins"]:
         BinVO.objects.update_or_create(
-            closet_name=bin['closet_name'],
-            bin_number=bin['bin_number'],
+            import_href=bin['href'],
+            defaults = {
+            "closet_name": bin['closet_name'],
+            "bin_number": bin['bin_number']
+            }
         )
 
 def poll():
@@ -27,6 +30,7 @@ def poll():
         print('Shoes poller polling for data')
         try:
             get_bin()
+            print("hello bin?")
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(5)
