@@ -21,8 +21,6 @@ def get_locations():
             import_href=location["href"],
             defaults= {
                 "closet_name":location["closet_name"],
-                "section_number":location["section_number"],
-                "shelf_number":location["shelf_number"],
                 }
         )
 
@@ -31,6 +29,7 @@ def poll():
         print('Hats poller polling for data')
         try:
             get_locations()
+            print('success')
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)
