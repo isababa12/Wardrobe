@@ -4,6 +4,8 @@ import Nav from "./Nav";
 import HatsList from "./HatsList";
 import HatsForm from "./HatsForm";
 import React from "react";
+import ShoesList from "./ShoesList";
+import ShoesForm from "./ShoesForm";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,8 +13,10 @@ class App extends React.Component {
 
     this.state = {
       hats: [],
+      shoes: [],
     };
     this.fetchHats = this.fetchHats.bind(this);
+    this.fetchShoes = this.fetchShoes.bind(this);
   }
 
   async fetchHats() {
@@ -20,6 +24,14 @@ class App extends React.Component {
     if (response.ok) {
       const data = await response.json();
       this.setState({ hats: data.hats });
+    }
+  }
+
+  async fetchShoes() {
+    const response = await fetch("http://localhost:8080/api/shoes/")
+    if (response.ok) {
+      const data = await response.json();
+      this.setState({ shoes: data.shoes });
     }
   }
 
@@ -38,9 +50,27 @@ class App extends React.Component {
     }
   }
 
+  async deleteShoe(id) {
+    const shoesUrl = `http://localhost:8080/api/shoes/${id}/`;
+    const fetchConfig = {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const shoesResponse = await fetch(shoesUrl, fetchConfig);
+    if (shoesResponse.ok) {
+      const data = await shoesResponse.json();
+      console.log(data);
+      this.fetchShoes();
+    }
+  }
+
   componentDidMount() {
     this.fetchHats();
+    this.fetchShoes();
   }
+
 
   render() {
     return (
@@ -49,6 +79,7 @@ class App extends React.Component {
         <div className="container">
           <Routes>
             <Route path="/" element={<MainPage />} />
+
             <Route path="hats">
               <Route
                 index
@@ -65,6 +96,22 @@ class App extends React.Component {
                 element={<HatsForm fetchHats={this.fetchHats} />}
               />
             </Route>
+            <Route path="shoes">
+                <Route
+                  index
+                  element={
+                  <ShoesList
+                    shoes={this.state.shoes}
+                    fetchShoes={this.fetchShoes}
+                    deleteShoe={this.deleteShoe}
+                    />
+                }
+                />
+                <Route
+                  path="new"
+                  element={<ShoesForm fetchShoes={this.fetchShoes}/>}
+                />
+              </Route>
           </Routes>
         </div>
       </BrowserRouter>
