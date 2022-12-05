@@ -48,17 +48,17 @@ class HatsForm extends React.Component {
     if (response.ok) {
       const newHat = await response.json();
       this.props.fetchHats();
-    }
 
-    const cleared = {
-      style_name: "",
-      fabric: "",
-      color: "",
-      picture_url: "",
-      location: "",
-      submitted: true,
-    };
-    this.setState(cleared);
+      const cleared = {
+        style_name: "",
+        fabric: "",
+        color: "",
+        picture_url: "",
+        location: "",
+        submitted: true,
+      };
+      this.setState(cleared);
+    }
   }
 
   render() {
@@ -150,10 +150,7 @@ class HatsForm extends React.Component {
             </div>
           </div>
         </div>
-        <div
-          className="alert alert-success w-50 mx-auto mt-3 d-none"
-          role="alert"
-        >
+        <div className={alertClasses} role="alert">
           Hat successfully created!
         </div>
       </div>
