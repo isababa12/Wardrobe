@@ -151,7 +151,7 @@ class HatsForm extends React.Component {
           </div>
         </div>
         <div
-          className="alert alert-success w-50 mx-auto mt-3 d-none"
+          className={alertClasses}
           role="alert"
         >
           Hat successfully created!

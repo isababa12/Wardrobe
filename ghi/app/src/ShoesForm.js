@@ -9,11 +9,13 @@ class ShoesForm extends React.Component {
             color: "",
             picture_url:"",
             bin: "",
+            submitted: false,
             bins: [],
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         }
+
     async componentDidMount() {
         const url = "http://localhost:8100/api/bins/";
         const response = await fetch(url);
@@ -22,15 +24,19 @@ class ShoesForm extends React.Component {
             this.setState({ bins: data.bins });
         }
     }
+
     handleInputChange(event) {
         const value = event.target.value;
         const name = event.target.name;
         this.setState({ [name]: value});
     }
+
     async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
         delete data.bins;
+        delete data.submitted;
+        console.log(data);
         const shoesUrl= "http://localhost:8080/api/shoes/";
         const fetchConfig = {
             method: "post",
@@ -40,21 +46,27 @@ class ShoesForm extends React.Component {
             },
         };
         const response = await fetch(shoesUrl, fetchConfig);
+        console.log(response)
         if (response.ok) {
             const newShoes = await response.json();
             console.log(newShoes);
             this.props.fetchShoes();
+            const cleared = {
+              manufacturer: "",
+              model_name: "",
+              color: "",
+              picture_url: "",
+              bin: "",
+              submitted: true,
+          };
+          this.setState(cleared);
         }
-        const cleared = {
-            manufacturer: "",
-            model_name: "",
-            color: "",
-            picture_url: "",
-            bin: "",
-        };
-        this.setState(cleared);
     }
     render() {
+        let alertClasses = "alert alert-success w-50 mx-auto mt-3 d-none";
+        if (this.state.submitted) {
+            alertClasses = "alert alert-success w-50 mx-auto mt-3";
+        }
         return(
             <div className="container">
             <div className="row">
@@ -125,7 +137,7 @@ class ShoesForm extends React.Component {
                         <option value="">Choose a Closet</option>
                         {this.state.bins.map((bin) => {
                           return (
-                            <option key={bin.id} value={bin.href}>
+                            <option key={bin.id} value={bin.id}>
                               {bin.closet_name}
                             </option>
                           );
@@ -140,10 +152,10 @@ class ShoesForm extends React.Component {
               </div>
             </div>
             <div
-              className="alert alert-success w-50 mx-auto mt-3"
+              className={alertClasses}
               role="alert"
             >
-              Shoe successfully created!
+              Shoes successfully created!
             </div>
           </div>
         );
