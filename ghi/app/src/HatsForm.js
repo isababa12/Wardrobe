@@ -33,7 +33,6 @@ class HatsForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = { ...this.state };
-    console.log(data);
     delete data.locations;
     const hatsUrl = "http://localhost:8090/api/hats/";
     const fetchConfig = {
@@ -47,6 +46,7 @@ class HatsForm extends React.Component {
     if (response.ok) {
       const newHat = await response.json();
       console.log(newHat);
+      this.props.fetchHats();
     }
 
     const cleared = {
@@ -65,7 +65,7 @@ class HatsForm extends React.Component {
         <div className="row">
           <div className="offset-3 col-6">
             <div className="shadow p-4 mt-4">
-              <h1>Create a new conference</h1>
+              <h1>Create a new hat</h1>
               <form onSubmit={this.handleSubmit} id="create-hats-form">
                 <div className="form-floating mb-3">
                   <input
@@ -143,6 +143,12 @@ class HatsForm extends React.Component {
               </form>
             </div>
           </div>
+        </div>
+        <div
+          className="alert alert-success w-50 mx-auto mt-3 d-none"
+          role="alert"
+        >
+          Hat successfully created!
         </div>
       </div>
     );

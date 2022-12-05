@@ -24,9 +24,19 @@ function HatsList(props) {
                     src={hat.picture_url}
                     height={75}
                     width={75}
-                  ></img>
+                    alt="hat"
+                  />
                 </td>
                 <td>{hat.location}</td>
+                <td>
+                  <button
+                    value={hat.id}
+                    onClick={(e) => props.deleteHat(e.target.value)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             );
           })}
