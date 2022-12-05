@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
   async fetchShoes() {
-    const response = await fetch("http://localhost:8080/api/shoes/")
+    const response = await fetch("http://localhost:8080/api/shoes/");
     if (response.ok) {
       const data = await response.json();
       this.setState({ shoes: data.shoes });
@@ -45,7 +45,6 @@ class App extends React.Component {
     };
     const response = await fetch(hatsUrl, fetchConfig);
     if (response.ok) {
-      const data = await response.json();
       this.fetchHats();
     }
   }
@@ -70,7 +69,6 @@ class App extends React.Component {
     this.fetchHats();
     this.fetchShoes();
   }
-
 
   render() {
     return (
@@ -97,21 +95,21 @@ class App extends React.Component {
               />
             </Route>
             <Route path="shoes">
-                <Route
-                  index
-                  element={
+              <Route
+                index
+                element={
                   <ShoesList
                     shoes={this.state.shoes}
                     fetchShoes={this.fetchShoes}
                     deleteShoe={this.deleteShoe}
-                    />
+                  />
                 }
-                />
-                <Route
-                  path="new"
-                  element={<ShoesForm fetchShoes={this.fetchShoes}/>}
-                />
-              </Route>
+              />
+              <Route
+                path="new"
+                element={<ShoesForm fetchShoes={this.fetchShoes} />}
+              />
+            </Route>
           </Routes>
         </div>
       </BrowserRouter>

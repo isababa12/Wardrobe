@@ -46,9 +46,6 @@ class HatsForm extends React.Component {
     };
     const response = await fetch(hatsUrl, fetchConfig);
     if (response.ok) {
-      const newHat = await response.json();
-      this.props.fetchHats();
-
       const cleared = {
         style_name: "",
         fabric: "",
@@ -58,6 +55,7 @@ class HatsForm extends React.Component {
         submitted: true,
       };
       this.setState(cleared);
+      this.props.fetchHats();
     }
   }
 
