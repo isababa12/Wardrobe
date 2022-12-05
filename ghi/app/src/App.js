@@ -34,7 +34,6 @@ class App extends React.Component {
     const response = await fetch(hatsUrl, fetchConfig);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       this.fetchHats();
     }
   }
