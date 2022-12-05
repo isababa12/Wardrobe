@@ -9,6 +9,7 @@ class HatsForm extends React.Component {
       color: "",
       picture_url: "",
       location: "",
+      submitted: false,
       locations: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -34,6 +35,7 @@ class HatsForm extends React.Component {
     event.preventDefault();
     const data = { ...this.state };
     delete data.locations;
+    delete data.submitted;
     const hatsUrl = "http://localhost:8090/api/hats/";
     const fetchConfig = {
       method: "post",
@@ -45,7 +47,6 @@ class HatsForm extends React.Component {
     const response = await fetch(hatsUrl, fetchConfig);
     if (response.ok) {
       const newHat = await response.json();
-      console.log(newHat);
       this.props.fetchHats();
     }
 
@@ -55,11 +56,16 @@ class HatsForm extends React.Component {
       color: "",
       picture_url: "",
       location: "",
+      submitted: true,
     };
     this.setState(cleared);
   }
 
   render() {
+    let alertClasses = "alert alert-success w-50 mx-auto mt-3 d-none";
+    if (this.state.submitted) {
+      alertClasses = "alert alert-success w-50 mx-auto mt-3";
+    }
     return (
       <div className="container">
         <div className="row">
@@ -145,7 +151,7 @@ class HatsForm extends React.Component {
           </div>
         </div>
         <div
-          className="alert alert-success w-50 mx-auto mt-3"
+          className="alert alert-success w-50 mx-auto mt-3 d-none"
           role="alert"
         >
           Hat successfully created!
