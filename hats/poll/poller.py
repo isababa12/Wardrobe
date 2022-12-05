@@ -29,7 +29,6 @@ def poll():
         print('Hats poller polling for data')
         try:
             get_locations()
-            print('success')
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)
