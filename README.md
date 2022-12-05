@@ -23,6 +23,8 @@ The location model is a value object polled from the Wardrobe API, and has the f
 
 ### Restful API endpoints for hats
 
+Base URL: http://localhost:8090
+
 | Method | URL                 | What it does                           |
 | ------ | ------------------- | -------------------------------------- |
 | GET    | /api/hats/          | Gets a list of all the hats            |
@@ -33,4 +35,10 @@ The location model is a value object polled from the Wardrobe API, and has the f
 
 ## Development
 
-TODO: steps to start application
+Run the following commands to start the application:
+
+- [ ] docker volume create pgdata
+- [ ] docker-compose build
+- [ ] docker-compose up
+
+Then navigate to the web application at http://localhost:3000/
