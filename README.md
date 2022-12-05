@@ -37,8 +37,8 @@ Base URL: http://localhost:8090
 
 Run the following commands to start the application:
 
-- [ ] docker volume create pgdata
-- [ ] docker-compose build
-- [ ] docker-compose up
+- docker volume create pgdata
+- docker-compose build
+- docker-compose up
 
 Then navigate to the web application at http://localhost:3000/
