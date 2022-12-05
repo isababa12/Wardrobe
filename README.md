@@ -22,6 +22,8 @@ The location model is a value object polled from the Wardrobe API, and has the f
 
 ### Restful API endpoints for shoes
 
+Base URL: http://localhost:8080
+
 | Method | URL                 | What it does                           |
 | ------ | ------------------- | -------------------------------------- |
 | GET    | /api/shoes/          | Gets a list of all the shoes            |
